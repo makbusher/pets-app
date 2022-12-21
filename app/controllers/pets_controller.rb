@@ -6,7 +6,7 @@ class PetsController < ApplicationController
 
   def show 
     @pet = Pet.find_by(id: params[:id])
-    render template: "photos/show"
+    render template: "pets/show"
   end
 
   def new
@@ -20,6 +20,20 @@ class PetsController < ApplicationController
       breed: params[:pet][:breed],
       image: params[:pet][:image],
     )
+    @pet.save
+    redirect_to "/pets"
+  end
+
+  def edit
+    @pet = Pet.find_by(id: params[:id])
+    render template: "pets/edit"
+  end
+
+  def update
+    @pet = Pet.find_by(id: params[:id])
+    @pet.name = params[:pet][:name]
+    @pet.breed = params[:pet][:breed]
+    @pet.image = params[:pet][:image]
     @pet.save
     redirect_to "/pets"
   end
